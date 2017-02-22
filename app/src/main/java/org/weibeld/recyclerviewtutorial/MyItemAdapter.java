@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class MyItemAdapter extends RecyclerView.Adapter<MyItemViewHolder> {
 
+    private static final String LOG_TAG = MyItemViewHolder.class.getSimpleName();
+
     private ArrayList<String> mData;
 
     public MyItemAdapter(ArrayList<String> data) {
@@ -35,13 +37,6 @@ public class MyItemAdapter extends RecyclerView.Adapter<MyItemViewHolder> {
     public void onBindViewHolder(MyItemViewHolder holder, int position) {
         holder.txtHeader.setText(mData.get(position));
         holder.txtFooter.setText("Footer: " + mData.get(position));
-        final String item = mData.get(position);
-        holder.icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                remove(item);
-            }
-        });
     }
 
     @Override

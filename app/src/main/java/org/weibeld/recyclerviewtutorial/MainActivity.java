@@ -1,14 +1,21 @@
 package org.weibeld.recyclerviewtutorial;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    Activity mActivity;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
@@ -20,19 +27,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
+        mActivity = this;
         mData = generateData();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // Set adapter for the RecyclerView
         mAdapter = new MyItemAdapter(mData);
         mRecyclerView.setAdapter(mAdapter);
 
         // Set LayoutManager for the RecyclerView
-        mLayoutManager = new LinearLayoutManager(this);
-        //mLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        //mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         //mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // Add item dividers to the RecyclerView
+        RecyclerView.ItemDecoration deco1 = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        //RecyclerView.ItemDecoration deco2 = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
+        mRecyclerView.addItemDecoration(deco1);
+        //mRecyclerView.addItemDecoration(deco2);
+
+        // Add an emulated "OnItemClickListener" to the RecyclerView
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(
+                new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.v(LOG_TAG, "Item " + position + " clicked");
+                        mData.remove(position);
+                        mAdapter.notifyItemRemoved(position);
+                    }
+                }
+        );
     }
 
     private ArrayList<String> generateData() {
@@ -79,4 +105,6 @@ public class MainActivity extends AppCompatActivity {
         data.add("Android 40");
         return data;
     }
+
+
 }
