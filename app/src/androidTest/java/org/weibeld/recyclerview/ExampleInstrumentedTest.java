@@ -1,4 +1,4 @@
-package org.weibeld.recyclerviewtutorial;
+package org.weibeld.recyclerview;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
