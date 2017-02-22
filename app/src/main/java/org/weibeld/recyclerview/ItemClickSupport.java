@@ -1,4 +1,4 @@
-package org.weibeld.recyclerviewtutorial;
+package org.weibeld.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

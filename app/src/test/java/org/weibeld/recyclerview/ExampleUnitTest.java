@@ -1,4 +1,4 @@
-package org.weibeld.recyclerviewtutorial;
+package org.weibeld.recyclerview;
 
 import org.junit.Test;
 

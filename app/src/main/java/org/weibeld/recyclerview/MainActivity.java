@@ -1,4 +1,4 @@
-package org.weibeld.recyclerviewtutorial;
+package org.weibeld.recyclerview;
 
 import android.app.Activity;
 import android.os.Bundle;
